@@ -3,6 +3,7 @@ import { findMany, insertOne, findOne } from "../repositories/logs_repositories.
 import { Log } from "../protocols/Log.js";
 import { Status } from "../protocols/Status.js";
 import { updateOne } from "../repositories/logs_repositories.js";
+import { deleteOne } from "../repositories/logs_repositories.js";
 
 function getAllLogs(req:Request,res:Response){
     const result = findMany();
@@ -39,4 +40,10 @@ function updateLog(req:Request,res:Response){
     res.send(`Updated log with id: ${updated.id}`).status(200);
 }
 
-export { getAllLogs, getLogById, postNewLog, updateLog }
+function deleteLog(req:Request, res: Response){
+    const {id} = req.params;
+    deleteOne(Number(id));
+    return res.sendStatus(200);
+}
+
+export { getAllLogs, getLogById, postNewLog, updateLog, deleteLog }

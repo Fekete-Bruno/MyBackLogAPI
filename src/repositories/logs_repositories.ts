@@ -11,7 +11,7 @@ function findOne(id: number){
 }
 
 function insertOne(log: Log){
-    log.id = logs.length + 1;
+    log.id = logs[logs.length-1].id + 1;
     log.status = 'wishlist';
     logs.push(log);
     return(log);
@@ -25,4 +25,9 @@ function updateOne(log: Log,status: Status){
     return log;
 }
 
-export { findMany, insertOne, findOne, updateOne }
+function deleteOne(id: number){
+    const log = findOne(id);
+    logs.splice(logs.indexOf(log),1);
+}
+
+export { findMany, insertOne, findOne, updateOne, deleteOne }
