@@ -1,8 +1,13 @@
 import logs from "../mock_database/data.js"
 import { Log } from "../protocols/Log.js";
+import { Status } from "../protocols/Status.js";
 
 function findMany(){
     return logs;
+}
+
+function findOne(id: number){
+    return logs.find((log)=>log.id===id)
 }
 
 function insertOne(log: Log){
@@ -12,4 +17,12 @@ function insertOne(log: Log){
     return(log);
 }
 
-export { findMany, insertOne }
+function updateOne(log: Log,status: Status){
+    log.status = status.status;
+    log.review = status.review;
+    log.rating = status.rating;
+
+    return log;
+}
+
+export { findMany, insertOne, findOne, updateOne }
