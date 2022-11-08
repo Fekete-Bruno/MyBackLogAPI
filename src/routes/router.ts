@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getAllLogs } from "../controllers/logs_controller.js";
+import { getAllLogs, postNewLog } from "../controllers/logs_controller.js";
 
 const router = Router();
 
@@ -8,5 +8,7 @@ router.get("/health",(req,res)=>{
 });
 
 router.get('/logs',getAllLogs);
+
+router.post('/logs',postNewLog);
 
 export default router;
