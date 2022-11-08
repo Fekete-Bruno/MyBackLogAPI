@@ -7,7 +7,7 @@ function findMany(){
 
 function insertOne(log: Log){
     log.id = logs.length + 1;
-    log.status = 'wishlist'
+    log.status = 'wishlist';
     logs.push(log);
     return(log);
 }
