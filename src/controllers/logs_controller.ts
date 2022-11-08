@@ -32,17 +32,22 @@ function updateLog(req:Request,res:Response){
     const log = findOne(Number(id));
 
     if(!log){
-        res.sendStatus(404)
+        return res.sendStatus(404)
     }
 
     const updated = updateOne(log,status);
 
-    res.send(`Updated log with id: ${updated.id}`).status(200);
+    return res.send(`Updated log with id: ${updated.id}`).status(200);
 }
 
 function deleteLog(req:Request, res: Response){
     const {id} = req.params;
-    deleteOne(Number(id));
+    const log = findOne(Number(id));
+
+    if(!log){
+        return res.sendStatus(404)
+    }
+    deleteOne(log);
     return res.sendStatus(200);
 }
 

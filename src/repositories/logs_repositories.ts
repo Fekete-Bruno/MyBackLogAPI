@@ -25,8 +25,7 @@ function updateOne(log: Log,status: Status){
     return log;
 }
 
-function deleteOne(id: number){
-    const log = findOne(id);
+function deleteOne(log: Log){
     logs.splice(logs.indexOf(log),1);
 }
 
