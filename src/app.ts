@@ -1,8 +1,8 @@
 import express from 'express';
-const server = express();
+import router from './routes/router.js';
 
-server.get("/health",(req,res)=>{
-    res.sendStatus(200);
-});
+const server = express();
+server.use(express.json());
+server.use(router);
 
 server.listen(4000,()=>{console.log('Listening on port 4000...')});
