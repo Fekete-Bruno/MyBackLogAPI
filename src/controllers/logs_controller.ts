@@ -11,12 +11,8 @@ function getAllLogs(req:Request,res:Response){
 }
 
 function getLogById(req:Request,res:Response){
-    const {id} = req.params;
-    const result = findOne(Number(id));
-    if(!result){
-        res.sendStatus(404);
-    }
-    return res.send(result).status(200);
+    const {log} = res.locals
+    return res.send(log).status(200);
 }
 
 function postNewLog(req:Request,res:Response){
@@ -27,26 +23,16 @@ function postNewLog(req:Request,res:Response){
 }
 
 function updateLog(req:Request,res:Response){
-    const {id} = req.params;
+    
     const status = req.body as Status;
-    const log = findOne(Number(id));
+    const {log} = res.locals
+    updateOne(log,status);
 
-    if(!log){
-        return res.sendStatus(404)
-    }
-
-    const updated = updateOne(log,status);
-
-    return res.send(`Updated log with id: ${updated.id}`).status(200);
+    return res.send(`Updated log with id: ${log.id}`).status(200);
 }
 
 function deleteLog(req:Request, res: Response){
-    const {id} = req.params;
-    const log = findOne(Number(id));
-
-    if(!log){
-        return res.sendStatus(404)
-    }
+    const {log} = res.locals
     deleteOne(log);
     return res.sendStatus(200);
 }

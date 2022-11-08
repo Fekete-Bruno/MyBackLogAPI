@@ -21,8 +21,6 @@ function updateOne(log: Log,status: Status){
     log.status = status.status;
     log.review = status.review;
     log.rating = status.rating;
-
-    return log;
 }
 
 function deleteOne(log: Log){
