@@ -16,7 +16,7 @@ function getLogById(req:Request,res:Response){
 }
 
 function postNewLog(req:Request,res:Response){
-    const newLog = req.body as Log;
+    const newLog = res.locals.log as Log;
 
     const insertedLog = insertOne(newLog);
     return res.send(`Log inserted with id: ${insertedLog.id}`).status(200);
