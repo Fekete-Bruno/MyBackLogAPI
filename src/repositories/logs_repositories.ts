@@ -1,22 +1,21 @@
-import logs from "../mock_database/data.js"
 import { connection } from "../database/database.js";
-import { Log } from "../protocols/Log.js";
+import { Log,LogEntity } from "../protocols/Log.js";
 import { Status } from "../protocols/Status.js";
 import{ QueryResult } from 'pg';
 
-async function findMany():Promise<QueryResult<Log>>{
+async function findMany():Promise<QueryResult<LogEntity>>{
     return connection.query(`
         SELECT * FROM logs;
     `);
 }
 
-function findOne(id: number):Promise<QueryResult<Log>>{
+function findOne(id: string):Promise<QueryResult<LogEntity>>{
     return connection.query(`
         SELECT * FROM logs WHERE id=$1;
     `,[id]);
 }
 
-async function insertOne(log: Log):Promise<QueryResult<any>>{
+async function insertOne(log: Log):Promise<QueryResult<LogEntity>>{
     const { name,image,platform,genre,status,rating,review } = log;
     return connection.query(`
     INSERT INTO 
@@ -31,8 +30,10 @@ function updateOne(log: Log,status: Status){
     log.rating = status.rating;
 }
 
-function deleteOne(log: Log){
-    logs.splice(logs.indexOf(log),1);
+async function deleteOne(id:string){
+    return connection.query(`
+        DELETE FROM logs WHERE id=$1;
+    `,[id]);
 }
 
 export { findMany, insertOne, findOne, updateOne, deleteOne }

@@ -39,10 +39,14 @@ function updateLog(req:Request,res:Response){
     return res.send(`Updated log with id: ${log.id}`).status(200);
 }
 
-function deleteLog(req:Request, res: Response){
-    const {log} = res.locals
-    deleteOne(log);
-    return res.sendStatus(200);
+async function deleteLog(req:Request, res: Response){
+    const id = res.locals.id;
+    try {
+        deleteOne(id);
+        return res.sendStatus(200);   
+    } catch (error) {
+        return errorHandler(error,res);
+    }
 }
 
 export { getAllLogs, getLogById, postNewLog, updateLog, deleteLog }
