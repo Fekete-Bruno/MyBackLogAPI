@@ -14,11 +14,13 @@ function findOne(id: number){
     return logs.find((log)=>log.id===id)
 }
 
-function insertOne(log: Log){
-    log.id = logs[logs.length-1].id + 1;
-    log.status = 'wishlist';
-    logs.push(log);
-    return(log);
+function insertOne(log: Log):Promise<QueryResult<any>>{
+    const { name,image,platform,genre,status,rating,review } = log;
+    return connection.query(`
+    INSERT INTO 
+	    logs(name,image,platform,genre,rating,review) 
+    VALUES($1,$2,$3,$4,$5,$6);
+    `,[name, image, platform,genre,rating,review]);
 }
 
 function updateOne(log: Log,status: Status){

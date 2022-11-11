@@ -4,14 +4,14 @@ import { Log } from "../protocols/Log.js";
 import { Status } from "../protocols/Status.js";
 import { updateOne } from "../repositories/logs_repositories.js";
 import { deleteOne } from "../repositories/logs_repositories.js";
+import errorHandler from "../middlewares/error_handler.js";
 
 async function getAllLogs(req:Request,res:Response){
     try {
         const result = await findMany();  
         return res.send(result.rows);
     } catch (error) {
-        console.error(error);
-        return res.send(error).status(500);
+        return(errorHandler(error,res));
     }
 }
 
@@ -20,11 +20,14 @@ function getLogById(req:Request,res:Response){
     return res.send(log).status(200);
 }
 
-function postNewLog(req:Request,res:Response){
+async function postNewLog(req:Request,res:Response){
     const newLog = res.locals.log as Log;
-
-    const insertedLog = insertOne(newLog);
-    return res.send(`Log inserted with id: ${insertedLog.id}`).status(200);
+    try {
+        await insertOne(newLog);
+        return res.sendStatus(201);
+    } catch (error) {
+        return(errorHandler(error,res));
+    }
 }
 
 function updateLog(req:Request,res:Response){
