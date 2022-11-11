@@ -1,18 +1,17 @@
 import { NextFunction, Request, Response } from "express";
 import { findOne } from "../repositories/logs_repositories.js";
-import validateSchema from "./schema_validation.js";
+import errorHandler from "./error_handler.js";
 
-export default function logExists(req: Request,res: Response,next:NextFunction){
+export default async function logExists(req: Request,res: Response,next:NextFunction){
     const {id} = req.params;
-    const log = findOne(Number(id));
-    if(!log){
-        return res.sendStatus(404);
+    try {
+        const promise = await findOne(Number(id));
+        if(promise.rowCount===0){
+            return res.sendStatus(404);
+        }
+        res.locals.log = promise.rows[0];
+        next();
+    } catch (error) {
+        return errorHandler(error,res);
     }
-
-    if(!validateSchema(log)){
-        return res.sendStatus(422);
-    }
-
-    res.locals.log = log;
-    next();
 }

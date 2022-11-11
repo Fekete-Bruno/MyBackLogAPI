@@ -6,15 +6,17 @@ import{ QueryResult } from 'pg';
 
 async function findMany():Promise<QueryResult<Log>>{
     return connection.query(`
-        SELECT * FROM logs
+        SELECT * FROM logs;
     `);
 }
 
-function findOne(id: number){
-    return logs.find((log)=>log.id===id)
+function findOne(id: number):Promise<QueryResult<Log>>{
+    return connection.query(`
+        SELECT * FROM logs WHERE id=$1;
+    `,[id]);
 }
 
-function insertOne(log: Log):Promise<QueryResult<any>>{
+async function insertOne(log: Log):Promise<QueryResult<any>>{
     const { name,image,platform,genre,status,rating,review } = log;
     return connection.query(`
     INSERT INTO 

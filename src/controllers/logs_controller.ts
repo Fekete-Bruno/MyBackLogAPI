@@ -16,7 +16,7 @@ async function getAllLogs(req:Request,res:Response){
 }
 
 function getLogById(req:Request,res:Response){
-    const {log} = res.locals
+    const log = res.locals.log as Log;
     return res.send(log).status(200);
 }
 
