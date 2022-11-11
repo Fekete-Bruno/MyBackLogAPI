@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { findMany, insertOne, findOne } from "../repositories/logs_repositories.js"
 import { Log } from "../protocols/Log.js";
-import { Status } from "../protocols/Status.js";
 import { updateOne } from "../repositories/logs_repositories.js";
 import { deleteOne } from "../repositories/logs_repositories.js";
 import errorHandler from "../middlewares/error_handler.js";

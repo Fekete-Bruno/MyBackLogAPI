@@ -1,6 +1,5 @@
 import { connection } from "../database/database.js";
 import { Log,LogEntity } from "../protocols/Log.js";
-import { Status } from "../protocols/Status.js";
 import{ QueryResult } from 'pg';
 
 async function findMany():Promise<QueryResult<LogEntity>>{
