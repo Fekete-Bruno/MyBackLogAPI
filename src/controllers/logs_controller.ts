@@ -5,9 +5,14 @@ import { Status } from "../protocols/Status.js";
 import { updateOne } from "../repositories/logs_repositories.js";
 import { deleteOne } from "../repositories/logs_repositories.js";
 
-function getAllLogs(req:Request,res:Response){
-    const result = findMany();
-    res.send(result);
+async function getAllLogs(req:Request,res:Response){
+    try {
+        const result = await findMany();  
+        return res.send(result.rows);
+    } catch (error) {
+        console.error(error);
+        return res.send(error).status(500);
+    }
 }
 
 function getLogById(req:Request,res:Response){

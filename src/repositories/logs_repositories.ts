@@ -1,9 +1,13 @@
 import logs from "../mock_database/data.js"
+import { connection } from "../database/database.js";
 import { Log } from "../protocols/Log.js";
 import { Status } from "../protocols/Status.js";
+import{ QueryResult } from 'pg';
 
-function findMany(){
-    return logs;
+async function findMany():Promise<QueryResult<Log>>{
+    return connection.query(`
+        SELECT * FROM logs
+    `);
 }
 
 function findOne(id: number){
