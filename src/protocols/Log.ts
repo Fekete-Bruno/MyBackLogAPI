@@ -1,5 +1,5 @@
-export type Log = {
-    id?: number,
+export type LogEntity = {
+    id: number,
     name: string,
     image?:string,
     platform:string,
@@ -9,13 +9,4 @@ export type Log = {
     review?:string
 } 
 
-export type LogInt = {
-    id?: number,
-    name: string,
-    image?:string,
-    platform:string,
-    genre:string,
-    status?:string,
-    rating?:number
-    review?:string
-} 
+export type Log = Omit<LogEntity, "id"> 
