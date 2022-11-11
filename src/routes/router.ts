@@ -15,7 +15,7 @@ router.post('/logs',validateLog,postNewLog);
 
 router.get('/logs/:id',logExists,getLogById);
 
-router.put('/logs/:id',logExists,updateLog);
+router.put('/logs/:id',logExists,validateLog,updateLog);
 
 router.delete('/logs/:id',logExists,deleteLog);
 

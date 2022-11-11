@@ -19,18 +19,28 @@ async function insertOne(log: Log):Promise<QueryResult<LogEntity>>{
     const { name,image,platform,genre,status,rating,review } = log;
     return connection.query(`
     INSERT INTO 
-	    logs(name,image,platform,genre,rating,review) 
+	    logs(name,image,platform,genre,status,rating,review) 
     VALUES($1,$2,$3,$4,$5,$6);
-    `,[name, image, platform,genre,rating,review]);
+    `,[name, image, platform,genre,status,rating,review]);
 }
 
-function updateOne(log: Log,status: Status){
-    log.status = status.status;
-    log.review = status.review;
-    log.rating = status.rating;
+async function updateOne(log:Log,id:string):Promise<QueryResult<LogEntity>>{
+    const { name,image,platform,genre,status,rating,review } = log;
+    return connection.query(`
+    UPDATE logs
+    SET 
+	    name=$1,
+        image=$2,
+        platform=$3,
+        genre=$4,
+        status=$5,
+        rating=$6,
+        review=$7
+    WHERE id = $8
+    `,[name, image, platform,genre,status,rating,review,id]);
 }
 
-async function deleteOne(id:string){
+async function deleteOne(id:string):Promise<QueryResult<LogEntity>>{
     return connection.query(`
         DELETE FROM logs WHERE id=$1;
     `,[id]);

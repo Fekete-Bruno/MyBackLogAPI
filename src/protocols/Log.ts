@@ -4,7 +4,7 @@ export type LogEntity = {
     image?:string,
     platform:string,
     genre:string,
-    status?:string,
+    status:string,
     rating?:number
     review?:string
 } 

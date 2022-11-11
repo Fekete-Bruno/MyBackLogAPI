@@ -30,13 +30,16 @@ async function postNewLog(req:Request,res:Response){
     }
 }
 
-function updateLog(req:Request,res:Response){
+async function updateLog(req:Request,res:Response){
     
-    const status = req.body as Status;
-    const {log} = res.locals
-    updateOne(log,status);
-
-    return res.send(`Updated log with id: ${log.id}`).status(200);
+    const newLog = req.body as Log;
+    const id = res.locals.id;
+    try {
+    updateOne(newLog,id);
+    return res.send(`Updated log with id: ${id}`).status(200);   
+    } catch (error) {
+        return errorHandler(error,res);
+    }
 }
 
 async function deleteLog(req:Request, res: Response){

@@ -6,7 +6,7 @@ export const logSchema = Joi.object({
     image: Joi.string(),
     platform: Joi.string().required(),
     genre: Joi.string().required(),
-    status: Joi.string(),
-    review: Joi.string(),
-    rating: Joi.number()
+    status: Joi.string().required(),
+    review: Joi.string().allow(null),
+    rating: Joi.number().integer().min(0).max(10).allow(null)
 });
