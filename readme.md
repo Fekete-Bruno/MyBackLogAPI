@@ -86,6 +86,14 @@ To run this application:
 | `id`      | `string` | **Required**. The ID of the game you want to update |
 
 
+### Get a query
+
+```http
+  GET /api/logs?platform=PS5&genre=RPG&status=wishlist
+```
+
+- You can mix and match these three queries.
+
 ## Authors
 
 - [@Fekete-Bruno](https://www.github.com/Fekete-Bruno)
