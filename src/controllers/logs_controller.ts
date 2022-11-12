@@ -1,11 +1,15 @@
 import { Request, Response } from "express";
-import { findMany, insertOne, findOne } from "../repositories/logs_repositories.js"
+import { findMany, insertOne, findOne, findQuery } from "../repositories/logs_repositories.js"
 import { Log } from "../protocols/Log.js";
 import { updateOne } from "../repositories/logs_repositories.js";
 import { deleteOne } from "../repositories/logs_repositories.js";
 import errorHandler from "../middlewares/error_handler.js";
+import { QueryLog } from "../protocols/QueryLog.js";
 
 async function getAllLogs(req:Request,res:Response){
+    if(req.query){
+        return getQuery(req.query,res);
+    }
     try {
         const result = await findMany();  
         return res.send(result.rows);
@@ -46,6 +50,15 @@ async function deleteLog(req:Request, res: Response){
     try {
         deleteOne(id);
         return res.sendStatus(200);   
+    } catch (error) {
+        return errorHandler(error,res);
+    }
+}
+
+async function getQuery(query:QueryLog,res:Response){
+    try {
+        const result = await findQuery(query);
+        return res.send(result.rows).status(200);   
     } catch (error) {
         return errorHandler(error,res);
     }
