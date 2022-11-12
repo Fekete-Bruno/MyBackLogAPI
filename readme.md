@@ -1,9 +1,9 @@
 
 # MyBackLog
 
-A games backlog list API, using this you can log what games in your wishlist, unplayed and played games you have. You can list them all in one place!
+A games backlog list API, using this you can log games in your wishlist, unplayed and played games you have. You can list them all in one place!
 
-This application is was created as a Proof of Concept for Typescript, as the author was learning about types and practicing.
+This application was created as a Proof of Concept for Typescript, as the author was learning about types and practicing.
 
 ## Installation
 To run this application:
