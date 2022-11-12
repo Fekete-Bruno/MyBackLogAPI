@@ -56,7 +56,7 @@ function findQuery(query:QueryLog){
 
     return connection.query(`
     SELECT * FROM logs;
-    `,[query.status]);
+    `);
 
 }
 
